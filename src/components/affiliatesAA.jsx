@@ -11,7 +11,6 @@ export default function Affiliates() {
     "aiubias.png", "aiubmtts.png", "aiubwie.png",
   ];
 
-  // Typing effect
   useEffect(() => {
     const text = "Our Affiliates";
     let index = 0;
@@ -24,7 +23,7 @@ export default function Affiliates() {
   }, []);
 
   return (
-    <div className="bg-black py-12 overflow-hidden">
+    <div className="bg-dark-purple py-12 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <h1 className="mt-1 text-4xl text-center font-extrabold bg-gradient-to-r from-purple-500 to-pink-600 bg-clip-text text-transparent sm:text-5xl sm:tracking-tight lg:text-6xl">
           {displayedText}
@@ -41,7 +40,7 @@ export default function Affiliates() {
         </div>
       </div>
 
-      {/* Custom animation styles */}
+
       <style jsx>{`
         @keyframes marquee {
           0% {
@@ -53,6 +52,10 @@ export default function Affiliates() {
         }
         .animate-marquee {
           animation: marquee 30s linear infinite;
+        }
+
+        .bg-dark-purple {
+          background-color: #3a0a45; /* Dark purple that syncs with black */
         }
       `}</style>
     </div>
