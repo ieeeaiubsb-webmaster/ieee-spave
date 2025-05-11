@@ -20,7 +20,7 @@ const navItems = [
   { name: "Contact", link: "contact" },
 ];
 
-export default function NavbarDemo() {
+export default function MyNavbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
