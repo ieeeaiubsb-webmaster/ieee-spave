@@ -1,16 +1,27 @@
 "use client";
+import { useState } from "react";
 import { BoxReveal } from "@/components/magicui/box-reveal";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 export default function About() {
+  const [showFullText, setShowFullText] = useState(false);
+
+  const fullText =
+    "IEEE, the world’s largest technical professional organization, prioritizes comprehensive development for students and professionals in technical fields. The IEEE Professional Awareness Programs highlight the significance of non-technical skills alongside technical expertise for a successful career. Through Student Professional Awareness Activities (SPAAs), students engage in structured events featuring experts discussing key areas of professional development. These areas include Career Development, Professional Integrity, Personal Skills, Engineers and Public Policy, Leadership in Professional Organizations, Innovation Practices, Communication Skills, and Humanitarian Grand Challenges. SPAAs incorporate presentations, panel discussions, and hands-on team activities to foster practical skills and expand personal networks. These experiences enhance students' non-technical competencies, paving the way for diverse job opportunities and enabling them to contribute meaningfully to society. Professional awareness underscores the integral approach to engineering education and empowers engineers and future professionals to excel in their careers.";
+
+  // Truncate to ~250 characters for mobile
+  const truncatedText =
+    fullText.length > 250 ? fullText.substring(0, 250) + "..." : fullText;
+  const needsTruncation = fullText !== truncatedText;
+
   return (
     <div className="relative mt-20">
       <div className="lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2 lg:items-start lg:gap-24 lg:px-8">
         <div className="relative sm:py-16 lg:py-0">
           <div
             aria-hidden="true"
-            className="hidden sm:block lg:absolute lg:inset-y-0 lg:right-0 lg:w-screen "
+            className="hidden sm:block lg:absolute lg:inset-y-0 lg:right-0 lg:w-screen"
           >
             <div className="absolute inset-y-0 right-1/2 w-full rounded-r-3xl bg-fuchsia-50 lg:right-72"></div>
             <motion.svg
@@ -72,35 +83,33 @@ export default function About() {
         <div className="relative mx-auto max-w-md px-6 sm:max-w-3xl lg:px-0">
           <div className="pt-12 sm:pt-16 lg:pt-20">
             <BoxReveal boxColor={"#C400E2"}>
-              <h1
-                className={`py-2 text-4xl text-left font-extrabold bg-gradient-to-r from-fuchsia-500 to-fuchsia-900 bg-clip-text text-transparent sm:text-5xl sm:tracking-tight lg:text-6xl`}
-              >
+              <h1 className="py-2 text-4xl text-left font-extrabold bg-gradient-to-r from-fuchsia-500 to-fuchsia-900 bg-clip-text text-transparent sm:text-5xl sm:tracking-tight lg:text-6xl">
                 What is "SPAA"?
               </h1>
             </BoxReveal>
 
             <div className="mt-6 space-y-6 text-gray-500">
-              <p className="text-lg text-justify">
-                IEEE, the world’s largest technical professional organization,
-                prioritizes comprehensive development for students and
-                professionals in technical fields. The IEEE Professional
-                Awareness Programs highlight the significance of non-technical
-                skills alongside technical expertise for a successful career.
-                Through Student Professional Awareness Activities (SPAAs),
-                students engage in structured events featuring experts
-                discussing key areas of professional development. These areas
-                include Career Development, Professional Integrity, Personal
-                Skills, Engineers and Public Policy, Leadership in Professional
-                Organizations, Innovation Practices, Communication Skills, and
-                Humanitarian Grand Challenges. SPAAs incorporate presentations,
-                panel discussions, and hands-on team activities to foster
-                practical skills and expand personal networks. These experiences
-                enhance students' non-technical competencies, paving the way for
-                diverse job opportunities and enabling them to contribute
-                meaningfully to society. Professional awareness underscores the
-                integral approach to engineering education and empowers
-                engineers and future professionals to excel in their careers.
-              </p>
+              {/* Full text on medium+ screens (always visible) */}
+              <p className="hidden md:block text-lg text-justify">{fullText}</p>
+
+              {/* Truncated text + button only on mobile (max-width: md) */}
+              <div className="md:hidden">
+                <p className="text-lg text-justify">
+                  {showFullText ? fullText : truncatedText}
+                </p>
+                {needsTruncation && (
+                  <button
+                    onClick={() => setShowFullText(!showFullText)}
+                    className={`mt-4 px-6 py-2 font-medium rounded-lg transition-colors duration-200 ${
+                      showFullText
+                        ? " hover:bg-gray-600 text-fuchsia-900"
+                        : " hover:bg-fuchsia-200 text-fuchsia-900"
+                    }`}
+                  >
+                    {showFullText ? "View Less" : "View More"}
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>

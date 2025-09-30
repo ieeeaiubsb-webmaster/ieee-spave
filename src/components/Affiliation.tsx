@@ -75,7 +75,7 @@ export default function Affiliation() {
             alt={logo.alt}
             width={logo.width}
             height={logo.height}
-            className={`object-contain h-50 w-50 p-4`}
+            className={`object-contain h-50 w-50 p-4 shrink-0`}
           />
         ))}
       </Marquee>

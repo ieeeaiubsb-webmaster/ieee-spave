@@ -13,26 +13,26 @@ import { useState } from "react";
 
 const navItems = [
   { name: "Home", link: "/" },
-  { name: "Event", link: "event" },
-  { name: "Committee", link: "committee" },
-  { name: "Ambassador", link: "ambassador" },
-  { name: "Registration", link: "registration" },
-  { name: "Contact", link: "contact" },
+  { name: "Event", link: "/event" },
+  { name: "Committee", link: "/committee" },
+  { name: "Ambassador", link: "/ambassador" },
+  { name: "Registration", link: "/registration" },
+  { name: "Contact", link: "mailto:ieeeaiubstudentbranch@gmail.com" },
 ];
 
 export default function MyNavbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full bg-[#020b33]">
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
-          <NavItems items={navItems} />
+          <NavItems items={navItems} className="text-black hover:text-white" />
         </NavBody>
 
         {/* Mobile Navigation */}
-        <MobileNav>
+        <MobileNav className="md:hidden">
           <MobileNavHeader>
             <NavbarLogo />
             <MobileNavToggle
@@ -47,12 +47,12 @@ export default function MyNavbar() {
           >
             {navItems.map((item, idx) => (
               <a
-                key={`mobile-link-${idx}`}
+                key={idx}
                 href={item.link}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="relative text-neutral-600 dark:text-neutral-300"
+                className="block py-2 text-black hover:text-white"
               >
-                <span className="block">{item.name}</span>
+                {item.name}
               </a>
             ))}
           </MobileNavMenu>
