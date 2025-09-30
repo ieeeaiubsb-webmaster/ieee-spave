@@ -1,33 +1,24 @@
-import { FlipWords } from "@/components/ui/flip-words";
-import Link from "next/link";
+import { AuroraText } from "./magicui/aurora-text";
 
 export default function Development() {
-  const words = ["Professional", "Career", "Networking", "Leadership"];
   return (
-    <div className="mx-auto grid grid-cols-1 md:grid-cols-4 max-w-5xl justify-center items-center">
-      <div className={`col-span-3 relative justify-center items-center px-4`}>
-        <h2
-          className={`mx-auto text-neutral-900 mb-4 text-3xl font-light md:font-bold md:text-5xl text-center`}
+    <div className="flex justify-center w-full">
+      <h2 className="text-center text-3xl font-light text-neutral-900 md:text-5xl md:font-bold max-w-4xl px-4 pb-8">
+        Where{" "}
+        <AuroraText
+          className="inline"
+          colors={["#1d094e", "#7928CA", "#c41ad1", "#0824a0"]}
         >
-          Enhance Your{" "}
-          <span className="mx-auto">
-            <FlipWords words={words} className={`text-[#C400E2]`} />
-          </span>
-          <br />
-          Skills
-        </h2>
-      </div>
-      <Link
-        href={"/registration"}
-        className="flex flex-col items-center justify-center"
-      >
-        <button className="p-[3px] relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-fuchsia-600 to-purple-500 rounded-lg" />
-          <div className="px-8 py-2  bg-black rounded-[6px]  relative group transition duration-200 text-white hover:bg-transparent">
-            Register Now
-          </div>
-        </button>
-      </Link>
+          Academia
+        </AuroraText>{" "}
+        meets{" "}
+        <AuroraText
+          className="inline"
+          colors={["#c41ad1", "#0824a0", "#7928CA", "#1d094e"]}
+        >
+          Industry
+        </AuroraText>
+      </h2>
     </div>
   );
 }

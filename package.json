@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroui/react": "^2.8.4",
     "@nextui-org/react": "^2.6.11",
     "@radix-ui/react-slot": "^1.2.2",
     "@supabase/supabase-js": "^2.49.4",
@@ -21,13 +22,13 @@
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "firebase": "^11.7.1",
-    "framer-motion": "^12.10.5",
+    "framer-motion": "^12.23.22",
     "lucide-react": "^0.503.0",
-    "motion": "^12.10.5",
+    "motion": "^12.23.22",
     "next": "^15.3.1",
     "nextjs-toploader": "^3.8.16",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "tailwind-merge": "^3.2.0"
   },
   "devDependencies": {

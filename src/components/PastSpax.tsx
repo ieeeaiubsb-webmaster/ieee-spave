@@ -1,8 +1,20 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Previous() {
+  const [showFullText, setShowFullText] = useState(false);
+
+  const fullText = `The IEEE AIUB Student Branch is the largest and one of the most accomplished student branches in the IEEE Bangladesh Section and IEEE Region 10. Renowned for its membership growth and professional and technical event organization, the branch made history in 2016 by hosting the first-ever Student Professional Awareness Venture (SPAVe) under the SPAx program of IEEE-USA in the Bangladesh Section, followed by SPAVe 2.0 in 2017, SPAVe 3.0 in 2018, SPAVe 4.0 in 2019, SPAVe 5.0 in 2021, and SPAVe 6.0 in 2023. Additionally, the Student Branch organized the first Student Professional Awareness Workshop (SPAW) in both the Bangladesh Section and Region 10 in 2018. These events were supported by IEEE USA, IEEE Region 10, IEEE Bangladesh Section, IEEE Young Professionals Bangladesh, and the IEEE BDS Student Activities Committee. The flagship programs included workshops, seminars, and technical talks designed to help students chart their future and establish successful professional careers.`;
+
+  const charLimit = 250;
+  const truncatedText =
+    fullText.length > charLimit
+      ? fullText.substring(0, charLimit) + "..."
+      : fullText;
+  const needsTruncation = fullText !== truncatedText;
+
   const images = [
     "/logos/spave6.png",
     "/logos/spave5.png",
@@ -14,6 +26,7 @@ export default function Previous() {
     "/logos/spaw2.png",
     "/logos/step1.png",
     "/logos/step2.png",
+    "/logos/Spave-7.0-Logo(Alt).png",
   ];
 
   return (
@@ -21,27 +34,33 @@ export default function Previous() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-x-8 gap-y-16 lg:grid-cols-2">
           <div className="mx-auto w-full max-w-xl lg:mx-0">
-            <h1 className="mt-1 text-4xl text-start font-extrabold bg-gradient-to-r from-purple-500 to-pink-600 bg-clip-text text-transparent sm:text-5xl sm:tracking-tight lg:text-5xl">
+            <h1 className="mt-1 text-4xl text-start font-extrabold bg-gradient-to-r from-[#ce54d6] to-[#a002c2] bg-clip-text text-transparent sm:text-5xl sm:tracking-tight lg:text-5xl">
               Our Past SPAx Ventures
             </h1>
-            <p className="mt-6 text-lg leading-8 text-white text-justify">
-              The IEEE AIUB Student Branch is the largest and one of the most
-              accomplished student branches in the IEEE Bangladesh Section and
-              IEEE Region 10. Renowned for its membership growth and
-              professional and technical event organization, the branch made
-              history in 2016 by hosting the first-ever Student Professional
-              Awareness Venture (SPAVe) under the SPAx program of IEEE-USA in
-              the Bangladesh Section, followed by SPAVe 2.0 in 2017, SPAVe 3.0
-              in 2018, SPAVe 4.0 in 2019, SPAVe 5.0 in 2021, and SPAVe 6.0 in
-              2023. Additionally, the Student Branch organized the first Student
-              Professional Awareness Workshop (SPAW) in both the Bangladesh
-              Section and Region 10 in 2018. These events were supported by IEEE
-              USA, IEEE Region 10, IEEE Bangladesh Section, IEEE Young
-              Professionals Bangladesh, and the IEEE BDS Student Activities
-              Committee. The flagship programs included workshops, seminars, and
-              technical talks designed to help students chart their future and
-              establish successful professional careers.
+
+            {/* Full text on medium+ screens */}
+            <p className="hidden md:block mt-6 text-lg leading-8 text-white text-justify">
+              {fullText}
             </p>
+
+            {/* Mobile-only: truncated text + button */}
+            <div className="md:hidden mt-6">
+              <p className="text-lg leading-8 text-white text-justify">
+                {showFullText ? fullText : truncatedText}
+              </p>
+              {needsTruncation && (
+                <button
+                  onClick={() => setShowFullText(!showFullText)}
+                  className={`mt-4 px-6 py-2 font-medium rounded-lg transition-colors duration-200 ${
+                    showFullText
+                      ? " hover:bg-gray-600 text-fuchsia-900"
+                      : " hover:bg-fuchsia-200 text-fuchsia-900"
+                  }`}
+                >
+                  {showFullText ? "View Less" : "View More"}
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Vertical marquee section */}
@@ -56,7 +75,7 @@ export default function Previous() {
                     <Image
                       className="h-24 w-full object-contain"
                       src={src}
-                      alt={src}
+                      alt={`Logo ${index + 1}`}
                       width={100}
                       height={24}
                     />
