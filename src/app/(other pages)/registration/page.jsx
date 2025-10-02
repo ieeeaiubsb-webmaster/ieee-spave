@@ -2,6 +2,37 @@
 import { Input, Select, SelectItem, Textarea } from "@heroui/react";
 import { useState, useMemo } from "react";
 import { supabase } from "/src/lib/supabase";
+import { AnimatedLogo } from "@/components/animated-logo";
+import { animate } from "motion";
+
+function LoadingState() {
+  return (
+    <div className="flex flex-col items-center justify-center py-12 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 rounded-2xl shadow-2xl max-w-lg mx-auto my-12 px-4">
+      <AnimatedLogo />
+      <p className="mt-6 text-white/80 text-sm animate-pulse">
+        Processing your registration...
+      </p>
+    </div>
+  );
+}
+
+function ThankYouMessage() {
+  return (
+    <div className="animate-fade-in-up max-w-lg mx-auto my-12 px-4">
+      <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 rounded-2xl shadow-2xl p-8 md:p-12 text-center">
+        <div className="mb-6 animate-scale-in flex justify-center">
+          <AnimatedLogo />
+        </div>
+        <h1 className="text-2xl md:text-3xl font-bold text-white mb-3 animate-fade-in-up animation-delay-200">
+          Thank you for registering!
+        </h1>
+        <p className="text-purple-200/80 text-sm md:text-base animate-fade-in-up animation-delay-400">
+          We've received your registration and will be in touch soon.
+        </p>
+      </div>
+    </div>
+  );
+}
 
 export default function Page() {
   const [firstNameValue, setFirstNameValue] = useState("");
@@ -63,6 +94,7 @@ export default function Page() {
   const [departmentTouched, setDepartmentTouched] = useState(false);
   const [isIeeeMemberTouched, setIsIeeeMemberTouched] = useState(false);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   const isFormValid = () => {
     return (
@@ -83,6 +115,16 @@ export default function Page() {
 
   const submitForm = async (e) => {
     e.preventDefault();
+
+    animate(window.scrollY, 0, {
+      duration: 0.6,
+      ease: "easeInOut",
+      onUpdate: (latest) => {
+        window.scrollTo(0, latest);
+      },
+    });
+    setUploading(true);
+    await new Promise((resolve) => setTimeout(resolve, 10)); // 10ms
     const formData = {
       firstName: firstNameValue,
       lastName: lastNameValue,
@@ -121,47 +163,28 @@ export default function Page() {
       .from("spave-phase-1")
       .insert(formData)
       .single();
+    setUploading(false);
+    setIsFormSubmitted(true);
     if (error) {
       // console.error(error);
-      return (
-        <>
-          <script>
-            alert("There was an error submitting the form. Please try again.")
-          </script>
-          <div className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8 rounded-md my-16">
-            <div className="text-center">
-              <p className="text-base font-semibold text-red-800">
-                Submission Failed
-              </p>
-              <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                Oops! Something went wrong.
-              </h1>
-              <p className="mt-6 text-base leading-7 text-gray-600">
-                There was an error submitting the form. Please try again.
-              </p>
-              <div className="mt-10 flex items-center justify-center gap-x-6">
-                <a
-                  href="/registration"
-                  className="rounded-md bg-fuchsia-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-fuchsia-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fuchsia-600"
-                >
-                  Go Back to Form
-                </a>
-              </div>
-            </div>
-          </div>
-        </>
-      );
+      alert("There was an error submitting the form. Please try again later.");
+      setUploading(false);
     }
 
     if (!error) {
       setIsFormSubmitted(true);
     }
   };
+
   return (
     <>
       <div className="overflow-y-hidden grid place-items-center bg-gray-200">
         <div className="lg:max-w-2xl max-w-screen-sm w-full mt-10 px-2">
-          {!isFormSubmitted && (
+          {uploading ? (
+            <LoadingState />
+          ) : isFormSubmitted ? (
+            <ThankYouMessage />
+          ) : (
             <form
               id="spave8-phase-1-registration-form"
               className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl my-6 sm:my-8 "
@@ -656,7 +679,7 @@ export default function Page() {
                         isInvalid={false}
                         value={whyParticipateValue}
                         variant="bordered"
-                        label="Why do you want to participate in SPAVe 7.0? (Max 1200 characters)"
+                        label="Why do you want to participate in SPAVe 8.0? (Max 1200 characters)"
                         placeholder="Enter your description"
                         defaultValue=""
                         errorMessage={
@@ -681,7 +704,7 @@ export default function Page() {
                         isInvalid={false}
                         value={expectationValue}
                         variant="bordered"
-                        label="What are you expecting from SPAVe 7.0?"
+                        label="What are you expecting from SPAVe 8.0?"
                         placeholder="Enter your description"
                         defaultValue=""
                         errorMessage={
@@ -715,29 +738,6 @@ export default function Page() {
                 </button>
               </div>
             </form>
-          )}
-          {isFormSubmitted && (
-            <main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8 rounded-md my-16">
-              <div className="text-center">
-                <p className="text-base font-semibold text-fuchsia-800">
-                  Best of Luck
-                </p>
-                <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                  Thank you for for your interest.
-                </h1>
-                <p className="mt-6 text-base leading-7 text-gray-600">
-                  Please check your email for further instructions.
-                </p>
-                <div className="mt-10 flex items-center justify-center gap-x-6">
-                  <a
-                    href="/"
-                    className="rounded-md bg-fuchsia-900 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-fuchsia-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fuchsia-600"
-                  >
-                    Go back to Home Page
-                  </a>
-                </div>
-              </div>
-            </main>
           )}
         </div>
       </div>

@@ -108,7 +108,7 @@ export default function Footer() {
                       <li key={item.name}>
                         <a
                           href={item.href}
-                          className="text-sm hover:text-black transition duration-150"
+                          className="text-sm hover:text-fuchsia-300 transition duration-150"
                         >
                           {item.name}
                         </a>
@@ -122,7 +122,7 @@ export default function Footer() {
                       <li key={item.name}>
                         <a
                           href={item.href}
-                          className="text-sm hover:text-black transition duration-150"
+                          className="text-sm hover:text-fuchsia-300 transition duration-150"
                         >
                           {item.name}
                         </a>
@@ -142,7 +142,7 @@ export default function Footer() {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="hover:text-black transition duration-150"
+                    className="hover:text-fuchsia-300 transition duration-150"
                     aria-label={item.name}
                   >
                     <item.icon className="h-6 w-6" />
