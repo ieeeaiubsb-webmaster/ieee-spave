@@ -24,7 +24,7 @@ export default function MyNavbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="relative w-full bg-[#020b33]">
+    <div className="lg:static fixed top-0 left-0 right-0 z-50 w-full bg-[#020b33] ">
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
@@ -32,7 +32,7 @@ export default function MyNavbar() {
         </NavBody>
 
         {/* Mobile Navigation */}
-        <MobileNav className="md:hidden">
+        <MobileNav className="lg:hidden">
           <MobileNavHeader>
             <NavbarLogo />
             <MobileNavToggle
