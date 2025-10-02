@@ -50,7 +50,7 @@ export default function MyNavbar() {
                 key={idx}
                 href={item.link}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block py-2 text-black hover:text-white"
+                className="block py-2 text-black hover:text-fuchsia-700"
               >
                 {item.name}
               </a>
