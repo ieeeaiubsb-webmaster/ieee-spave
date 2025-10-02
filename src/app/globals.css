@@ -12,6 +12,13 @@
   background-position: center;
   background-size: cover;
 }
+.hero-background-mobile {
+  background-image: url("../../public/MobileBG-01.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
 
 @custom-variant dark (&:is(.dark *));
 
