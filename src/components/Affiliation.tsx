@@ -66,7 +66,7 @@ export default function Affiliation() {
   ];
 
   return (
-    <div className={`container`}>
+    <div className={`flex justify-center w-full py-8`}>
       <Marquee>
         {logos.map((logo, index) => (
           <Image
