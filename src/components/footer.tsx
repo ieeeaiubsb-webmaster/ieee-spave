@@ -68,7 +68,7 @@ const navigation: NavigationData = {
     },
     {
       name: "LinkedIn",
-      href: "#",
+      href: "https://www.linkedin.com/company/ieee-aiub-student-branch/",
       icon: Linkedin,
     },
   ],
