@@ -385,7 +385,7 @@ export default function Page() {
                   <br />
                   Application Deadline:{" "}
                   <span className="text-red-600">
-                    4<sup>th</sup>October, 2025 (Sataurday)
+                    5<sup>th</sup>October, 2025 (Sunday)
                   </span>
                 </b>
               </div>
