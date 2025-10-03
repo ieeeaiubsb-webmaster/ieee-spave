@@ -304,7 +304,7 @@ export default function Page() {
                 oriented to enhance engineering students' leadership, career,
                 and professional development skills.{" "}
                 <b> Student Professional Awareness Experience, SPAx </b> builds
-                on the longstanding legacy of Student Professional Awareness
+                on the enduring legacy of Student Professional Awareness
                 Conferences and Ventures to address the highly dynamic world we
                 live in today. <br />
                 The “x” in <b> SPAx </b> is a variable that can be shaped as per
