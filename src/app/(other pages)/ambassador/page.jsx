@@ -298,7 +298,7 @@ export default function Page() {
                 SPAVE 8.0: <br />
                 Call for Ambassadors
               </div>
-              <div className="text-medium w-full text-wrap py-4 px-6 md:px-12 text-gray-600">
+              <div className="text-medium text-justify w-full text-wrap py-4 px-6 md:px-12 text-gray-600">
                 The <b> IEEE-USA </b>branded{" "}
                 <b> Student Professional Awareness Activities (SPAA </b>) are
                 oriented to enhance engineering students' leadership, career,
