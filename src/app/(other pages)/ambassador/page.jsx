@@ -286,9 +286,9 @@ export default function Page() {
       // console.log(error.code);
       // console.log(error.message);
       // console.log(error.status);
-      // alert(
-      //   "There was an error submitting the form. Please try again. Image Preview not set, upload again"
-      // );
+      alert(
+        "There was an error submitting the form. Please try again.  Preview not set, upload files again"
+      );
       // alert(`${error.message}`);
       // console.log(error);
       setUploading(false);
