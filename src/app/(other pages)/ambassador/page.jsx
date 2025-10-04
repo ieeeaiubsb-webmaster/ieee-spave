@@ -76,12 +76,14 @@ export default function Page() {
   const [uploading, setUploading] = useState(false);
 
   const handelCvSubmit = (e) => {
+    // e.persist();
     setIsCvTounched(true);
-    setResumeValue(null);
+
     const selectedFile = e.target.files[0];
 
     if (!selectedFile) {
       setIsCvValid(false);
+      setResumeValue(null);
       return;
     }
 
@@ -92,15 +94,24 @@ export default function Page() {
 
     if (!allowedExtensions.includes(fileExtension)) {
       setIsCvValid(false);
+      setResumeValue(null);
       e.target.value = "";
       return;
     }
 
     if (fileSize > maxSize) {
       setIsCvValid(false);
+      setResumeValue(null);
       e.target.value = "";
       return;
     }
+
+    console.log({
+      name: selectedFile.name,
+      type: selectedFile.type,
+      size: selectedFile.size / 1024 / 1024 + " MB",
+    });
+
     setIsCvValid(true);
     setResumeValue(selectedFile);
   };
