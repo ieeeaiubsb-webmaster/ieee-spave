@@ -48,7 +48,7 @@ export default function Page() {
   const [instituteIdValue, setInstituteIdValue] = useState("");
   const [facebookValue, setFacebookValue] = useState("");
   const [linkedinValue, setLinkedinValue] = useState("");
-  const [isIeeeMemberValue, setIsIeeeMemberValue] = useState("");
+  const [isIeeeMemberValue, setIsIeeeMemberValue] = useState(new Set([]));
   const [ieeeMembershipIdValue, setIeeeMembershipIdValue] = useState("");
   const [volunteering_experience, setvolunteering_experience] = useState("");
 
@@ -106,11 +106,11 @@ export default function Page() {
       return;
     }
 
-    console.log({
-      name: selectedFile.name,
-      type: selectedFile.type,
-      size: selectedFile.size / 1024 / 1024 + " MB",
-    });
+    // console.log({
+    //   name: selectedFile.name,
+    //   type: selectedFile.type,
+    //   size: selectedFile.size / 1024 / 1024 + " MB",
+    // });
 
     setIsCvValid(true);
     setResumeValue(selectedFile);
@@ -187,8 +187,6 @@ export default function Page() {
     }
 
     setUploading(true);
-    await new Promise((resolve) => setTimeout(resolve, 10)); // 10ms
-
     try {
       // Create unique filenames
       const photoFileName = `${firstNameValue}_${lastNameValue}_${instituteIdValue}_${Date.now()}.${photoValue.name
