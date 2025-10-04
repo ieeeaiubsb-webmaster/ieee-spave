@@ -95,14 +95,14 @@ export default function Page() {
     if (!allowedExtensions.includes(fileExtension)) {
       setIsCvValid(false);
       setResumeValue(null);
-      e.target.value = "";
+      // e.target.value = "";
       return;
     }
 
     if (fileSize > maxSize) {
       setIsCvValid(false);
       setResumeValue(null);
-      e.target.value = "";
+      // e.target.value = "";
       return;
     }
 
@@ -136,7 +136,7 @@ export default function Page() {
       setIsPhotoValid(false);
       setPhotoValue(null);
       //invalid file type
-      e.target.value = "";
+      // e.target.value = "";
       return;
     }
 
@@ -144,7 +144,7 @@ export default function Page() {
       setIsPhotoValid(false);
       setPhotoValue(null);
       //file size exceeded
-      e.target.value = "";
+      // e.target.value = "";
       return;
     }
     setIsPhotoValid(true);
@@ -172,6 +172,7 @@ export default function Page() {
 
   const submitForm = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
     animate(window.scrollY, 0, {
       duration: 0.6,
       ease: "easeInOut",
@@ -273,20 +274,21 @@ export default function Page() {
         // affiliationWithOtherOrg: affiliationWithOtherOrgValue,
         // previousVolunteeringExperience: previousVolunteeringExperience,
       };
-
+      // console.log("Inserting data:", data);
       // console.log(data);
-      const { error } = await supabase
-        .from("spave_ambassadors")
-        .insert(data)
-        .single();
+      const { error } = await supabase.from("spave_ambassadors").insert(data);
       setIsFormSubmitted(true);
       setUploading(false);
       // console.log(data);
     } catch (error) {
       // console.error("Error uploading files or submitting form:", error);
-      alert(
-        "There was an error submitting the form. Please try again. Image Preview not set, upload again"
-      );
+      // console.error("Database insert error:", error);
+      // console.log(error.code);
+      // console.log(error.message);
+      // console.log(error.status);
+      // alert(
+      //   "There was an error submitting the form. Please try again. Image Preview not set, upload again"
+      // );
       // alert(`${error.message}`);
       // console.log(error);
       setUploading(false);
