@@ -123,6 +123,7 @@ export default function Page() {
 
     if (!selectedFile) {
       setIsPhotoValid(false);
+      setPhoneValue(null);
       return;
     }
 
@@ -133,6 +134,7 @@ export default function Page() {
 
     if (!allowedExtensions.includes(fileExtension)) {
       setIsPhotoValid(false);
+      setPhotoValue(null);
       //invalid file type
       e.target.value = "";
       return;
@@ -140,6 +142,7 @@ export default function Page() {
 
     if (fileSize > maxSize) {
       setIsPhotoValid(false);
+      setPhotoValue(null);
       //file size exceeded
       e.target.value = "";
       return;
@@ -278,9 +281,14 @@ export default function Page() {
         .single();
       setIsFormSubmitted(true);
       setUploading(false);
+      // console.log(data);
     } catch (error) {
       // console.error("Error uploading files or submitting form:", error);
-      alert("There was an error submitting the form. Please try again.");
+      alert(
+        "There was an error submitting the form. Please try again. Image Preview not set, upload again"
+      );
+      // alert(`${error.message}`);
+      // console.log(error);
       setUploading(false);
     }
   };
