@@ -10,11 +10,14 @@ export default function NotFound() {
           <div className="text-center">
             <p className="text-base font-semibold text-cyan-600"></p>
             <h1 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-              Will be updated{" "}
+              No longer Accepting{" "}
               <AuroraText colors={["#c41ad1", "#0824a0", "#7928CA", "#1d094e"]}>
-                Soon
+                Response
               </AuroraText>
             </h1>
+            <p className="font-bold text-2xl p-8">
+              Reult will be published soon
+            </p>
 
             <div className="mt-28">
               <Link
