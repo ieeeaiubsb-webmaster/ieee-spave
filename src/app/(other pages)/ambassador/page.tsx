@@ -16,7 +16,7 @@ export default function NotFound() {
               </AuroraText>
             </h1>
             <p className="font-bold text-2xl p-8">
-              Reult will be published soon
+              Result will be published soon
             </p>
 
             <div className="mt-28">
