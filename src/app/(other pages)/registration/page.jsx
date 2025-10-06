@@ -115,6 +115,7 @@ export default function Page() {
 
   const submitForm = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
 
     animate(window.scrollY, 0, {
       duration: 0.6,
@@ -124,55 +125,48 @@ export default function Page() {
       },
     });
     setUploading(true);
-    await new Promise((resolve) => setTimeout(resolve, 10)); // 10ms
-    const formData = {
-      firstName: firstNameValue,
-      lastName: lastNameValue,
-      email: emailValue,
-      phone: phoneValue,
-      bloodGroup: Array.from(bloodGroupValue)[0],
-      gender: Array.from(genderValue)[0],
-      university: universityValue,
-      instituteId: instituteIdValue,
-      department: Array.from(departmentValue)[0],
-      academicYear: Array.from(academicYearValue)[0],
-      educationLevel: Array.from(educationLevelValue)[0],
-      // currentCgpa: currentCgpaValue,
-      // completedCredits: completedCreditsValue,
-      // address: addressValue,
-      facebook: facebookValue,
-      linkedin: linkedinValue,
-      // position: Array.from(positionValue)[0],
-      // tool: toolValue,
-      // portfolio: portfolioValue,
-      isIeeeMember: Array.from(isIeeeMemberValue)[0],
-      ieeeMembershipId: ieeeMembershipIdValue,
-      // affiliationWithOtherOrg: affiliationWithOtherOrgValue,
-      // previousVolunteeringExperience: previousVolunteeringExperience,
-      // qualification: qualificationValue,
-      // whyJoinIeee: whyJoinIeee,
-      // resume: resumeUrl,
-      // photo: photoUrl,
-      whatDoYouKnowAboutSpave: whatDoYouKnowAboutSpaveValue,
-      whyParticipateValue: whyParticipateValue,
-      expectationValue: expectationValue,
-      year: 2025,
-    };
-    // console.log(formData);
-    const { error } = await supabase
-      .from("spave-phase-1")
-      .insert(formData)
-      .single();
-    setUploading(false);
-    setIsFormSubmitted(true);
-    if (error) {
-      // console.error(error);
-      alert("There was an error submitting the form. Please try again later.");
-      setUploading(false);
-    }
 
-    if (!error) {
+    try {
+      const formData = {
+        firstName: firstNameValue,
+        lastName: lastNameValue,
+        email: emailValue,
+        phone: phoneValue,
+        bloodGroup: Array.from(bloodGroupValue)[0],
+        gender: Array.from(genderValue)[0],
+        university: universityValue,
+        instituteId: instituteIdValue,
+        department: Array.from(departmentValue)[0],
+        academicYear: Array.from(academicYearValue)[0],
+        educationLevel: Array.from(educationLevelValue)[0],
+        // currentCgpa: currentCgpaValue,
+        // completedCredits: completedCreditsValue,
+        // address: addressValue,
+        facebook: facebookValue,
+        linkedin: linkedinValue,
+        // position: Array.from(positionValue)[0],
+        // tool: toolValue,
+        // portfolio: portfolioValue,
+        isIeeeMember: Array.from(isIeeeMemberValue)[0],
+        ieeeMembershipId: ieeeMembershipIdValue,
+        // affiliationWithOtherOrg: affiliationWithOtherOrgValue,
+        // previousVolunteeringExperience: previousVolunteeringExperience,
+        // qualification: qualificationValue,
+        // whyJoinIeee: whyJoinIeee,
+        // resume: resumeUrl,
+        // photo: photoUrl,
+        whatDoYouKnowAboutSpave: whatDoYouKnowAboutSpaveValue,
+        whyParticipateValue: whyParticipateValue,
+        expectationValue: expectationValue,
+        year: 2025,
+      }; // console.log(formData);
+      const { error } = await supabase.from("spave-phase-1").insert(formData);
+      setUploading(false);
       setIsFormSubmitted(true);
+    } catch (error) {
+      // console.error(error);
+      alert("There was an error submitting the form. Please try again.");
+      setUploading(false);
     }
   };
 
