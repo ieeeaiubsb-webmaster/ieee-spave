@@ -13,7 +13,7 @@ const SearchForm = ({ value, onChange }) => {
             placeholder="Search ambassadors..."
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            className="flex-1 border-none rounded-l-2xl focus:ring-0 h-10"
+            className="flex-1 border-none rounded-l-2xl focus:ring-0 focus-visible:ring-0 h-10"
           />
           <Button className="bg-gradient-to-r from-[#a602c6] to-[#3b0766] hover:from-[#a602c6]/80 hover:to-[#3b0766]/80 text-white rounded-r-2xl rounded-l-none h-14 px-12 py-3 -mr-2">
             <Search size={20} />
