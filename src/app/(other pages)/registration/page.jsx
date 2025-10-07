@@ -96,23 +96,6 @@ export default function Page() {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [uploading, setUploading] = useState(false);
 
-  const isFormValid = () => {
-    return (
-      !isNameInvalid(firstNameValue) &&
-      !isNameInvalid(lastNameValue) &&
-      isEmailInvalid &&
-      !isPhoneInvalid &&
-      !isAiubIdInvalid &&
-      departmentValue.size > 0 &&
-      academicYearValue.size > 0 &&
-      !isCompletedCreditsInvalid &&
-      bloodGroupValue.size > 0 &&
-      genderValue.size > 0 &&
-      positionValue.size > 0 &&
-      !isCurrentCgpaInvalid
-    );
-  };
-
   const submitForm = async (e) => {
     e.preventDefault();
     e.stopPropagation();
