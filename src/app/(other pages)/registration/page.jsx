@@ -544,6 +544,12 @@ export default function Page() {
                       <SelectItem key={"Architecture"} value={"Architecture"}>
                         {"Architecture"}
                       </SelectItem>
+                      <SelectItem key={"CNCS"} value={"CNCS"}>
+                        {"CNCS"}
+                      </SelectItem>
+                      <SelectItem key={"Data Science"} value={"Data Science"}>
+                        {"Data Science"}
+                      </SelectItem>
                       <SelectItem key={"others"} value={"others"}>
                         {"others"}
                       </SelectItem>
