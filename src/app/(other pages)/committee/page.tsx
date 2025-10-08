@@ -1,33 +1,83 @@
-import { AuroraText } from "@/components/magicui/aurora-text";
-import Link from "next/link";
+import { supabase } from "../../../lib/supabase";
+import CommitteeCard from "../../../components/CommitteeCard";
 
-export default function NotFound() {
+export const revalidate = 0; 
+
+export default async function CommitteePage() {
+  const { data: members, error } = await supabase
+    .from("committee_members")
+    .select("*")
+    .order("priority_order", { ascending: true });
+
+  if (error) {
+    console.error("Error fetching members:", error.message);
+    return <div className="text-red-500 text-center">Failed to load members.</div>;
+  }
+
+  if (!members || members.length === 0) {
+    return <div className="text-gray-400 text-center">No members found.</div>;
+  }
+
+  const advisor = members.find((m) => m.priority_order === 1)
+  const programChair = members.find((m) => m.priority_order === 2);
+  const coChair = members.find((m) => m.priority_order === 3);
+  const financeChair = members.find((m) => m.priority_order === 5);
+  const eventChair = members.find((m) => m.priority_order === 6);
+  const localChair = members.find((m) => m.priority_order === 4);
+  const others = members.filter((m) => m.priority_order >=7);
+
   return (
-    <div className="flex min-h-full flex-col bg-white pt-16 pb-12">
-      <main className="mx-auto flex w-full max-w-7xl flex-grow flex-col justify-center px-6 lg:px-8">
-        <div className="flex flex-shrink-0 justify-center"></div>
-        <div className="py-16 mt-12">
-          <div className="text-center">
-            <p className="text-base font-semibold text-cyan-600"></p>
-            <h1 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-              Will be updated{" "}
-              <AuroraText colors={["#c41ad1", "#0824a0", "#7928CA", "#1d094e"]}>
-                Soon
-              </AuroraText>
-            </h1>
+    <div className="w-full min-h-screen bg-white text-fuchsia-600 px-6 py-16">
+      <h1 className="text-4xl font-bold text-center mb-12 tracking-wide">
+        SPAVE 8.0 Organizing Committee
+      </h1>
 
-            <div className="mt-28">
-              <Link
-                href="/"
-                className="text-base font-medium text-black hover:text-fuchsia-500"
-              >
-                Go back home
-                <span aria-hidden="true"> &rarr;</span>
-              </Link>
-            </div>
-          </div>
+      {/* Row 1 - Advisor */}
+      {advisor && (
+        <div className="flex justify-center mb-10">
+          <CommitteeCard member={advisor} />
         </div>
-      </main>
+      )}
+      {/* Row 2 - Program Chair */}
+      {programChair && (
+        <div className="flex justify-center mb-10">
+          <CommitteeCard member={programChair} />
+        </div>
+      )}
+
+
+
+
+
+      {/* Row 3 - coChair and local arrangment chair*/}
+      <div className="flex flex-wrap justify-center gap-8 mb-10">
+        {coChair && <CommitteeCard member={coChair} />}
+        {localChair && <CommitteeCard member={localChair} />}
+      </div>
+
+      {/* Row 4 - finance chair and event chair */}
+      <div className="flex flex-wrap justify-center gap-8 mb-10">
+        {financeChair && <CommitteeCard member={financeChair} />}
+        {eventChair && <CommitteeCard member={eventChair} />}
+      </div>
+
+      {/* Remaining members */}
+      <div className="flex flex-col items-center gap-10">
+        {(() => {
+          const rows = [];
+          for (let i = 0; i < others.length; i += 4) {
+            rows.push(others.slice(i, i + 4));
+          }
+          return rows.map((rowMembers, rowIndex) => (
+            <div key={rowIndex} className="flex flex-wrap justify-center gap-8">
+              {rowMembers.map((m) => (
+                <CommitteeCard key={m.id} member={m} />
+              ))}
+            </div>
+          ));
+        })()}
+      </div>
     </div>
   );
 }
+
